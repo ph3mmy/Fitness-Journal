@@ -3,6 +3,7 @@ package com.jonathanblair.fitnessjournal;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
@@ -11,6 +12,8 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 /**
  * Created by oluwafemi.bamisaye on 4/20/2016.
@@ -35,14 +38,29 @@ public class Splash extends Activity {
             }
         }).start();*/
 
+
         ImageView log = (ImageView) findViewById(R.id.logo);
         TextView tvSplash = (TextView) findViewById(R.id.splash_txt);
 
-        blinkAnim = AnimationUtils.loadAnimation(this,R.anim.blink);
+//        blinkAnim = AnimationUtils.loadAnimation(this,R.anim.blink);
         moveAnim = AnimationUtils.loadAnimation(this, R.anim.move);
 
-        log.setAnimation(moveAnim);
-        tvSplash.setAnimation(blinkAnim);
+//        log.setAnimation(moveAnim);
+//        tvSplash.setAnimation(blinkAnim);
+
+        ShimmerFrameLayout container =
+                (ShimmerFrameLayout) findViewById(R.id.shimmer_view_container);
+        container.startShimmerAnimation();
+
+
+        int delay = 3000;
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                startActivity(new Intent(Splash.this, MainActivity.class));
+                Splash.this.finish();
+//                overridePendingTransition(R.anim.move, R.anim.slide_left);
+            }
+        }, delay);
 
 
 /*
@@ -88,6 +106,9 @@ public class Splash extends Activity {
         l2.clearAnimation();
         l2.startAnimation(anim);
     }*/
+
+
+
 
 
 
